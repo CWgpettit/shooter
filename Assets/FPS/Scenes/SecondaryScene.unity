@@ -12605,6 +12605,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 814417836257332542, guid: 761cdc9e4e883334cbdcea062d0befa7,
+        type: 3}
+      propertyPath: swimming
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7253983127304857660, guid: 761cdc9e4e883334cbdcea062d0befa7,
         type: 3}
       propertyPath: m_Name
@@ -16185,6 +16190,7 @@ GameObject:
   - component: {fileID: 1480865359}
   - component: {fileID: 1480865358}
   - component: {fileID: 1480865357}
+  - component: {fileID: 1480865361}
   m_Layer: 0
   m_Name: water
   m_TagString: Untagged
@@ -16261,12 +16267,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480865356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 158.04, y: 22.08, z: 119}
-  m_LocalScale: {x: 19.415411, y: 1, z: -8.734184}
+  m_LocalPosition: {x: 176, y: 22.08, z: 107.2}
+  m_LocalScale: {x: 6, y: 1, z: 6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1480865361
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480865356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 3, z: 10.000001}
+  m_Center: {x: 0, y: -1.5, z: 0}
 --- !u!1001 &1484221942
 PrefabInstance:
   m_ObjectHideFlags: 0

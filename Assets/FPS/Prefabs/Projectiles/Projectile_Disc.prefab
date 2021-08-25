@@ -60,6 +60,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -71,6 +72,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -107,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de99b30e1e73fd14e98cc5371da25d12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.2
+  radius: 1000
   root: {fileID: 106790115311484948}
   tip: {fileID: 106790115311484948}
-  maxLifeTime: 5
+  maxLifeTime: 10000
   impactVFX: {fileID: 4260779743739990948, guid: bbe6bdea7cd168e428a309e9eb2e728b,
     type: 3}
   impactVFXLifetime: 5
@@ -119,11 +121,11 @@ MonoBehaviour:
   hittableLayers:
     serializedVersion: 2
     m_Bits: 3383
-  speed: 30
+  speed: 1000
   gravityDownAcceleration: 10
   trajectoryCorrectionDistance: -1
   inheritWeaponVelocity: 0
-  damage: 40
+  damage: 10000
   areaOfDamage: {fileID: 1203337828444365110}
   radiusColor: {r: 0, g: 1, b: 1, a: 0.49803922}
 --- !u!114 &1203337828444365110
@@ -138,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0244d6b9e98532469c7be0732490a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaOfEffectDistance: 2.5
+  areaOfEffectDistance: 100
   damageRatioOverDistance:
     serializedVersion: 2
     m_Curve:
@@ -256,6 +258,7 @@ TrailRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -267,6 +270,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

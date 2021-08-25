@@ -11,6 +11,7 @@ public class PlayerCharacterController : MonoBehaviour
     public AudioSource audioSource;
 
     [Header("General")]
+    public bool swimming = false;
     [Tooltip("Force applied downward when in the air")]
     public float gravityDownForce = 20f;
     [Tooltip("Physic layers checked to consider the player grounded")]
@@ -287,10 +288,14 @@ public class PlayerCharacterController : MonoBehaviour
                     {
                         // start by canceling out the vertical component of our velocity
                         characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
-
-                        // then, add the jumpSpeed value upwards
-                        characterVelocity += Vector3.up * jumpForce;
-
+                        
+                        if (swimming == true) {
+                            characterVelocity += Vector3.up * (jumpForce/0.2f);
+                        }
+                        else{
+                            // then, add the jumpSpeed value upwards
+                            characterVelocity += Vector3.up * jumpForce;
+                        }
                         // play sound
                         audioSource.PlayOneShot(jumpSFX);
 
@@ -326,9 +331,14 @@ public class PlayerCharacterController : MonoBehaviour
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeedInAir * speedModifier);
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-
+                float Less_Gravity = 0;
+                if (swimming == true)
+                {
+                    Less_Gravity = gravityDownForce/2;
+                    
+                }
                 // apply the gravity to the velocity
-                characterVelocity += Vector3.down * gravityDownForce * Time.deltaTime;
+                characterVelocity += Vector3.down * (gravityDownForce -Less_Gravity) * Time.deltaTime;
             }
         }
 
