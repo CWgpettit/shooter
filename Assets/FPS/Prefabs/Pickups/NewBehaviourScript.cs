@@ -19,11 +19,12 @@ public GameObject CoinParent;
     {
         
     }
-private void OnTriggerEnter(Collider other){
-
-Destroy(other.transform.gameObject);
-score++;
-Score.text="Score:"+score.ToString();
-CoinParent.GetComponent<coin_sound>().playsound();
-}
+    private void OnTriggerEnter(Collider other){
+        if (other.gameObject.CompareTag("coin")){
+            Destroy(other.transform.gameObject);
+            score++;
+            Score.text="Score:"+score.ToString();
+            CoinParent.GetComponent<coin_sound>().playsound();
+        }
+    }
 }

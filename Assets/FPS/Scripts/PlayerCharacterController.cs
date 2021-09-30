@@ -12,6 +12,9 @@ public class PlayerCharacterController : MonoBehaviour
 
     [Header("General")]
     public bool swimming = false;
+    public float SwimGravityForce;
+    public float SwimJumpForce;
+    public float SwimMoveSpeed;
     [Tooltip("Force applied downward when in the air")]
     public float gravityDownForce = 20f;
     [Tooltip("Physic layers checked to consider the player grounded")]
@@ -119,6 +122,34 @@ public class PlayerCharacterController : MonoBehaviour
     const float k_JumpGroundingPreventionTime = 0.2f;
     const float k_GroundCheckDistanceInAir = 0.07f;
 
+    void Jump()
+    {       
+        // jumping
+        if (m_InputHandler.GetJumpInputDown())
+        {
+            // force the crouch state to false
+            if (SetCrouchingState(false, false))
+            {
+                // start by canceling out the vertical component of our velocity
+                characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
+                
+                if (swimming == true) {
+                    characterVelocity += Vector3.up * (SwimJumpForce);
+                }
+                else{
+                    // then, add the jumpSpeed value upwards
+                    characterVelocity += Vector3.up * jumpForce;
+                }
+                // play sound
+                audioSource.PlayOneShot(jumpSFX);
+
+                // remember last time we jumped because we need to prevent snapping to ground for a short time
+                m_LastTimeJumped = Time.time;
+                hasJumpedThisFrame = true;
+                m_GroundNormal = Vector3.up;
+            }
+        }
+    }
     void Start()
     {
         // fetch components on the same gameObject
@@ -281,32 +312,9 @@ public class PlayerCharacterController : MonoBehaviour
                 characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpnessOnGround * Time.deltaTime);
 
                 // jumping
-                if (isGrounded && m_InputHandler.GetJumpInputDown())
+                if (isGrounded) 
                 {
-                    // force the crouch state to false
-                    if (SetCrouchingState(false, false))
-                    {
-                        // start by canceling out the vertical component of our velocity
-                        characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
-                        
-                        if (swimming == true) {
-                            characterVelocity += Vector3.up * (jumpForce/0.2f);
-                        }
-                        else{
-                            // then, add the jumpSpeed value upwards
-                            characterVelocity += Vector3.up * jumpForce;
-                        }
-                        // play sound
-                        audioSource.PlayOneShot(jumpSFX);
-
-                        // remember last time we jumped because we need to prevent snapping to ground for a short time
-                        m_LastTimeJumped = Time.time;
-                        hasJumpedThisFrame = true;
-
-                        // Force grounding to false
-                        isGrounded = false;
-                        m_GroundNormal = Vector3.up;
-                    }
+                    Jump();
                 }
 
                 // footsteps sound
@@ -331,21 +339,31 @@ public class PlayerCharacterController : MonoBehaviour
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
                 horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeedInAir * speedModifier);
                 characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
-                float Less_Gravity = 0;
                 if (swimming == true)
                 {
-                    Less_Gravity = gravityDownForce/2;
+                    // apply the gravity to the velocity
+                    characterVelocity += Vector3.down * SwimGravityForce * Time.deltaTime;
                     
                 }
-                // apply the gravity to the velocity
-                characterVelocity += Vector3.down * (gravityDownForce -Less_Gravity) * Time.deltaTime;
+                else{
+                    // apply the gravity to the velocity
+                    characterVelocity += Vector3.down * gravityDownForce * Time.deltaTime;
+                }
+                
+                
+                if (swimming == true){
+                    Jump();
+                }    
             }
         }
 
         // apply the final calculated velocity value as a character movement
         Vector3 capsuleBottomBeforeMove = GetCapsuleBottomHemisphere();
         Vector3 capsuleTopBeforeMove = GetCapsuleTopHemisphere(m_Controller.height);
-        m_Controller.Move(characterVelocity * Time.deltaTime);
+        if (swimming == true){
+        m_Controller.Move((characterVelocity/SwimMoveSpeed) * Time.deltaTime);
+        }
+        else{ m_Controller.Move(characterVelocity * Time.deltaTime);}
 
         // detect obstructions to adjust velocity accordingly
         m_LatestImpactSpeed = Vector3.zero;
