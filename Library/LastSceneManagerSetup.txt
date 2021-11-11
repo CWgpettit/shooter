@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/FPS/Scenes/SecondaryScene 1.unity
+- path: Assets/FPS/Scenes/zone 1 beta.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
