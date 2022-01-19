@@ -45,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243115921504442520, guid: fcc71635aab95ff4fbdf1880bf2afa2f,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 53d2238f4c4b2aa4f8e559c7af9e0126, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: -2.8
   Loop: 0
@@ -155,17 +155,17 @@ MonoBehaviour:
   weaponRoot: {fileID: 6455239111748895492}
   weaponMuzzle: {fileID: 2710378102632925562}
   shootType: 1
-  projectilePrefab: {fileID: 528546716365072993, guid: 3c6b27d949cdda749892906e1f1d1b27,
+  projectilePrefab: {fileID: 528546716365072993, guid: f05c7e6fbbfbe824388456bb4abff9d4,
     type: 3}
-  delayBetweenShots: 0.05
-  bulletSpreadAngle: 2
+  delayBetweenShots: 0.1
+  bulletSpreadAngle: 0
   bulletsPerShot: 1
   recoilForce: 1.13
-  aimZoomRatio: 0.5
+  aimZoomRatio: 1
   aimOffset: {x: 0, y: 0.05, z: 0}
-  ammoReloadRate: 20
-  ammoReloadDelay: 2
-  maxAmmo: 100
+  ammoReloadRate: 0.5
+  ammoReloadDelay: 0.1
+  maxAmmo: 50
   automaticReleaseOnCharged: 0
   maxChargeDuration: 2
   ammoUsedOnStartCharge: 1
